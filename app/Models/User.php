@@ -46,11 +46,39 @@ class User extends Authenticatable
     }
 
 
-    public function getUser(){
+    public function getUser($id=null){
         //query here
-        return [
-            'name' => 'Nigel',
-            'age' => '21',
+        
+
+            $users = [
+                [
+                'id' => 1,
+                'name' => 'Nigel',
+                'age' => 21,
+                'email' => 'nigelcamba@gmail.com', 
+
+            ],
+            [
+                'id' => 2,
+                'name' => 'Jeah',
+                'age' => 20,
+                'email' => 'jeahcamba@gmail.com', 
+
+            ]
         ];
-    }
+
+
+        return collect($users)->where('id', $id)->first();
+            // foreach($users as $user){
+            //     if($user['id'] == $id) {
+            //         return $user;
+            //     }
+            //     else{
+            //         return [];
+            //     }
+            // }
+
+        }
+    
+    
 }

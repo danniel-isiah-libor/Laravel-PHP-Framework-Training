@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    /**
+     * Submit user information
+     * @param \Illuminate\Http\Request $request
+     * @return never
+     */
     public function submit(Request $request)
     {
       // dd($request->age);
@@ -46,12 +51,27 @@ class UserController extends Controller
 
     }
 
-    public function show($id = null)
+    /**
+     * 
+     * Show the user profile
+     * @param mixed $id
+     * @return array
+     */
+    public function show(Request $request, $id = null)
     {
+      //dump magprproceed sa next line
+      //dd magddie lahat 
+      // dump($id);
+      // dd($request->all());
       //para maaccess yung function sa loob ng class use -> then function name
       
       $userClass = new User();
-      return $userClass->getUser();
+      // return $userClass->getUser();
+      $data = $userClass->getUser($id);
+
+      // dd($data);
+
+      return view('profile', ['user' => (object)$data]);
 
     }
 }
