@@ -40,6 +40,9 @@ class UserController extends Controller
     {
         $userClass = new User();
 
-        return $userClass->getUser();
+        // return $userClass->getUser();
+        $data = $userClass->getUser();
+
+        return view('profile', $data);
     }
 }

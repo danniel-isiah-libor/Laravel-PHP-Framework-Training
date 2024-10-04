@@ -45,10 +45,10 @@ Route::get('/there', function () {
 Route::view('/welcome', 'welcome');
 
 
-Route::fallback(function () {
-    //return view('custom-404');
-    return "Not Found";
-});
+// Route::fallback(function () {
+//     //return view('custom-404');
+//     return "Not Found";
+// });
 /*
 Route::get('/users/{id?}', function ($id = null) {
     return "user" . $id;
@@ -58,10 +58,9 @@ Route::get('/users/{id?}', function ($id = null) {
     return "user" . $id;
 })->whereAlpha('id');
 */
-Route::get('/users/{id?}', function ($id = null) {
-    return "user" . $id;
-})->whereNumber('id');
+Route::get('/users/{id?}', [UserController::class, 'show'])->whereNumber('id');
 
 //query string sample /users/?name=John.....
 //Route::get('/users/submit', [UserController::class, 'submit']);
+
 Route::get('/users/submit', [UserController::class, 'submit']);

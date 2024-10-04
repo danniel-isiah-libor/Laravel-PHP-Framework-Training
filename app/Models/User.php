@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -44,12 +43,27 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function getUser()
+
+    /**
+     * Get a list of users.
+     *
+     * @return array
+     */
+    public function getUsers() // Renamed to getUsers
     {
         return [
-            'name' => 'Danniel',
-            'age' => 40,
-
+            [
+                'id' => 1,
+                'name' => 'William',
+                'age' => 40,
+                'email' => 'alambatinw@gmail.com',
+            ],
+            [
+                'id' => 2,
+                'name' => 'Junren',
+                'age' => 35,
+                'email' => 'junren@gmail.com',
+            ],
         ];
     }
 }
