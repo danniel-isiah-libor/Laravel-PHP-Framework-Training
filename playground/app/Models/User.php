@@ -48,7 +48,7 @@ class User extends Authenticatable
     public function getUser($id = null)
     {
         // query here
-        return [
+        $users = [
             [
                 'id' => 1,
                 'name' => 'Danniel',
@@ -62,5 +62,16 @@ class User extends Authenticatable
                 'email' => 'john@mail.test'
             ]
         ];
+
+        // foreach ($users as $user) {
+        //     if ($user['id'] == $id) {
+        //         return $user;
+        //     } else {
+        //         return [];
+        //     }
+        // }
+
+        // return collect($users)->firstWhere('id', $id);
+        return collect($users)->where('id', $id)->first();
     }
 }

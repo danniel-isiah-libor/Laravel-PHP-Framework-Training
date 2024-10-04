@@ -12,11 +12,11 @@
         <h1>This is User Profile Page</h1>
 
         <?php
-        echo 'Name: ' . $name;
+        echo 'Name: ' . optional($user)->name;
         echo '<br>';
-        echo 'Age: ' . $age;
+        echo 'Age: ' . optional($user)->age;
         echo '<br>';
-        echo 'Email: ' . $email;
+        echo 'Email: ' . optional($user)->email;
         ?>
     </body>
 
