@@ -44,4 +44,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function getUser()
+    {
+        // query here
+        return [
+            'name' => 'Danniel',
+            'age' => 25,
+        ];
+    }
 }
