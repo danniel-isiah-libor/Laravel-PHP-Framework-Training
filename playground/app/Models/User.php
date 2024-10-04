@@ -45,12 +45,22 @@ class User extends Authenticatable
         ];
     }
 
-    public function getUser()
+    public function getUser($id = null)
     {
         // query here
         return [
-            'name' => 'Danniel',
-            'age' => 25,
+            [
+                'id' => 1,
+                'name' => 'Danniel',
+                'age' => 25,
+                'email' => 'danniel@mail.test'
+            ],
+            [
+                'id' => 2,
+                'name' => 'John',
+                'age' => 30,
+                'email' => 'john@mail.test'
+            ]
         ];
     }
 }

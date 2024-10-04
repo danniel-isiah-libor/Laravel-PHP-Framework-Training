@@ -28,10 +28,21 @@ class UserController extends Controller
         dd($request->all());
     }
 
-    public function show($id = null)
+    /**
+     * Show the user profile.
+     *
+     * @param int|null $id
+     * @return array<string, int>
+     */
+    public function show(Request $request, $id = null)
     {
+        // dump($id);
+        // dd($request->all());
+
         $userClass = new User();
 
-        return $userClass->getUser();
+        $data = $userClass->getUser();
+
+        return view('profile', $data);
     }
 }
