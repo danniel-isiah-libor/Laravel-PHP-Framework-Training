@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
@@ -52,6 +54,26 @@ class UserController extends Controller
     {
         $validatedRequest = $request->validated();
 
-        dd($validatedRequest);
+        // saving ...
+
+        return redirect(route('login'));
+    }
+
+    public function authenticate(LoginRequest $request)
+    {
+        $validatedRequest = $request->validated();
+
+        // Validate credentials...
+        // Auth::attempt($validatedRequest);
+
+        // Perform login...
+        $user = new User();
+        $user->email = $validatedRequest['email'];
+        $user->password = $validatedRequest['password'];
+
+        Auth::login($user);
+
+        // return redirect(route('dashboard'));
+        return view('dashboard');
     }
 }

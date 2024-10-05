@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PyramidController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -50,3 +52,17 @@ Route::view('/register', 'register');
 
 Route::post('/register', [UserController::class, 'store'])
     ->name('register');
+
+Route::view('/login', 'login')->name('login');
+
+Route::post('/login', [UserController::class, 'authenticate'])
+    ->name('authenticate');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard');
+
+Route::get('/logout', function () {
+    Auth::logout();
+
+    return redirect(route('login'));
+})->name('logout');
