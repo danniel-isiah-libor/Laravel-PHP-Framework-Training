@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
     return view('welcome');
@@ -43,3 +46,27 @@ Route::get('/users/{id?}', [UserController::class, 'show'])
 
 
 Route::get("/users/submit", [UserController::class, 'submit']);
+Route::get("/users/star/{count}", [UserController::class, 'star']);
+
+
+Route::view('/register', 'register');
+
+Route::get('/submit', function (Request $request) {
+    dd($request);
+});
+
+Route::post("/register", [UserController::class, 'store'])->name('register');
+
+Route::view('/login', 'login')->name('login');
+
+Route::post('/login', [UserController::class, 'authenticate'])
+    ->name('authenticate');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard');
+
+Route::get('/logout', function () {
+    Auth::logout();
+
+    return redirect(route('login'));
+})->name('logout');
