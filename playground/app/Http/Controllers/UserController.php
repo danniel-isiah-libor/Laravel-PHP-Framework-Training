@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -44,5 +46,12 @@ class UserController extends Controller
         $data = $userClass->getUser($id);
 
         return view('profile', ['user' => (object)$data]);
+    }
+
+    public function store(RegisterRequest $request)
+    {
+        $validatedRequest = $request->validated();
+
+        dd($validatedRequest);
     }
 }

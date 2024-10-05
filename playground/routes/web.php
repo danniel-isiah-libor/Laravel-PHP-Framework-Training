@@ -48,6 +48,5 @@ Route::get('/pyramid/{count?}', [PyramidController::class, 'display'])
 
 Route::view('/register', 'register');
 
-Route::get('/submit', function (Request $request) {
-    dd($request);
-});
+Route::post('/register', [UserController::class, 'store'])
+    ->name('register');

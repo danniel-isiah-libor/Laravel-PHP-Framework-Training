@@ -1,3 +1,5 @@
-<form class="form-control" action="/submit" method="GET">
+<form class="form-control" action="{{ route('register') }}" method="POST">
+    @csrf
+
     {{ $slot }}
 </form>
