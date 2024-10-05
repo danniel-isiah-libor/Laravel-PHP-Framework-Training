@@ -26,9 +26,17 @@ class UserController extends Controller
         dd($request->all());
     }
 
-    public function show($id = null)
+    /**
+     * Show the user profile
+     *
+     */
+    public function show(Request $request, $id = null)
     {
+        // dump($request->id);
+        // dd($request->all());
         $user = new User();
-        return $user->getUser();
+        $data = $user->getUser($request->id);
+
+        return view('profile', ['user' => (object)$data]);
     }
 }
