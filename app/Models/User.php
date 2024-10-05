@@ -45,11 +45,29 @@ class User extends Authenticatable
         ];
     }
 
-    public function getUser()
+    public function getUser($id = null)
     {
-        return [
-            'name' => 'naz',
-            'age' => 25
+        // query here
+        $users = [
+            [
+                'id' => 1,
+                'name' => 'Danniel',
+                'age' => 25,
+                'email' => 'danniel@mail.test'
+            ],
+            [
+                'id' => 2,
+                'name' => 'John',
+                'age' => 30,
+                'email' => 'john@mail.test'
+            ]
         ];
+
+        if ($id !== null) {
+            // Find user by ID
+            return collect($users)->where('id', $id)->first();
+        }
+
+        return $users; // Return all users if no ID is specified
     }
 }
