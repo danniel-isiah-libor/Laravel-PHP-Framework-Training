@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -74,4 +78,43 @@ class UserController extends Controller
       return view('profile', ['user' => (object)$data]);
 
     }
+
+
+    public function pyramid(Request $request, $id = null){
+
+      $class = new User();
+
+      $data = $class->getDiamond($id);
+
+      return view("profile", $data);
+      
+    }
+
+    public function store(RegisterRequest $request){
+
+      $validatedRequest = $request->validated();
+
+      $validatedRequest['avatar']->store('avatar', 'public');
+      return redirect(route('login'));
+    }
+
+    public function showLogin(){
+      return view('login');
+    }
+
+    public function authenticate(LoginRequest $request){
+      $validatedRequest= $request ->validated();
+      // Auth::attempt($validatedRequest);
+    
+
+      $user = new User();
+      $user -> email = $validatedRequest ['email'];
+      $user -> password = $validatedRequest ['password'];
+      Auth::login($user);
+      // dd(Auth::user());
+      
+
+      return view('dashboard');
+    }
 }
+

@@ -6,10 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>This is a User Profile Page</h1>
-    <?php
-        echo optional($user);
-    ?>
+    <div>
+        <!-- The whole future lies in uncertainty: live immediately. - Seneca -->
+    </div>
+    
+    <p>
+       
 
+    </p>
 </body>
 </html>

@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PyramidController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -94,3 +97,22 @@ Route::get('/users/{id?}', [UserController::class, 'show'])->whereNumber('id');
 
 Route::get('users/submit', [UserController::class, 'submit']);
 
+Route::get('/pyramid/{count?}', [PyramidController::class, 'display'])->name('pyramid');
+
+// Route::get('/register', [UserController::class, 'register'])->name('register');
+
+Route::view('/register', 'register');
+
+Route::post('/register', [UserController::class, 'store'])->name('register');
+
+Route::get('/login', [UserController::class, 'showLogin'])->name('login');
+
+Route::post('/authenticate', [UserController::class, 'authenticate'])->name('authenticate');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('/logout', function(){
+    Auth::logout();
+
+    return redirect(route('login'));
+})->name('logout');
