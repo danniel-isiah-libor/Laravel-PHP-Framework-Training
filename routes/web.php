@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PyramidController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
@@ -38,9 +41,6 @@ Route::fallback(function (){
     return "Not Found!";
 }); //mag-eexecute kapag hindi nag eexist yung route sa website
 
-Route::get('/users/{id?}',[UserController::class, 'show'])->whereNumber('id'); //dynamic route || kapag may ?, magiging optional na siya;
-//gumamit ng ->whereNumber('id') para mavalidate ba kung number yung variable  
-//->whereAlpha para sa Alphabet lang etc.
 
 // // http://127.0.0.1:8000/users/submit/?name=john&age=30
 // Route::get('/users/submit', function(Request $request){
@@ -64,5 +64,24 @@ Route::get('/users/{id?}',[UserController::class, 'show'])->whereNumber('id'); /
 // //use -> for calling / papasukin yung object;
 // //use => for defining value sa key;
 
+Route::get('/users/{id?}',[UserController::class, 'show'])->whereNumber('id'); //dynamic route || kapag may ?, magiging optional na siya;
+//gumamit ng ->whereNumber('id') para mavalidate ba kung number yung variable  
+//->whereAlpha para sa Alphabet lang etc.
+Route::get('/users/submit', [UserController::class,'submit']); //tatawagin yung class na may method na submit;
 
-Route::get('/users/submit', [UserController::class,'submit']); //tatawagin yung class na may method na submit
+Route::get('/pyramid/{count?}',[PyramidController::class,'display'])->name('pyramid');
+
+Route::view('/register','register');
+
+Route::post('/register', [UserController::class, 'store'])->name('register');
+
+Route::view('/login', 'login')->name('login');
+
+Route::post('/login', [UserController::class, 'authenticate'])->name('authenticate');
+
+Route::get('/dashboard', [DashboardController::class] , 'index')->name('dashboard');
+
+Route::get('/logout', function(){
+    Auth::logout();
+    return redirect(route('login'));
+})->name('logout');
