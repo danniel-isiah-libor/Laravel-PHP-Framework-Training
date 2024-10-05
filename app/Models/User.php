@@ -44,4 +44,26 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function getUser($id=null)
+    {
+        $users= [
+            [
+                'id' => 1,
+                'name' => 'Danniel',
+                'age' => 25,
+                'email' => 'danniel@mail.test'
+            ],
+            [
+                'id' => 2,
+                'name' => 'John',
+                'age' => 30,
+                'email' => 'john@mail.test'
+            ]
+            
+        ];
+        return collect($users)->where('id', $id)->first();
+        
+    }
+    
+    
 }
