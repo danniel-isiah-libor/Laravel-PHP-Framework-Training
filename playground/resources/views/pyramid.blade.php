@@ -9,12 +9,7 @@
 </head>
 
 <body>
-    <h1>This is User Profile Page</h1>
-    <div>{{ $user->name ?? null }}</div>
-    <div>{{ $user->age ?? null }}</div>
-    <div>{{ $user->email ?? null }}</div>
-
-    <div>{{ $asterisk }}</div>
+    <div>{!! $pyramid !!}</div>
 </body>
 
 </html>

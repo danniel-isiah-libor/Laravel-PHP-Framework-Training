@@ -44,7 +44,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
+    /**
+     * Get User By Params
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function getUser($id = null)
     {
 
@@ -75,5 +80,9 @@ class User extends Authenticatable
 
         return collect($users)->where('id', $id)->first();
 
+    }
+
+    public function createUser(){
+        
     }
 }
