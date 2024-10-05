@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -44,26 +45,33 @@ class User extends Authenticatable
         ];
     }
 
-    /**
-     * Get a list of users.
-     *
-     * @return array
-     */
-    public function getUsers() // Renamed to getUsers
+    public function getUser($id = null)
     {
-        return [
+        // query here
+        $users = [
             [
                 'id' => 1,
                 'name' => 'William',
-                'age' => 40,
-                'email' => 'alambatinw@gmail.com',
+                'age' => 39,
+                'email' => 'william@mail.test'
             ],
             [
                 'id' => 2,
-                'name' => 'Junren',
-                'age' => 35,
-                'email' => 'junren@gmail.com',
-            ],
+                'name' => 'Rey',
+                'age' => 24,
+                'email' => 'rey@mail.test'
+            ]
         ];
+
+        // foreach ($users as $user) {
+        //     if ($user['id'] == $id) {
+        //         return $user;
+        //     } else {
+        //         return [];
+        //     }
+        // }
+
+        // return collect($users)->firstWhere('id', $id);
+        return collect($users)->where('id', $id)->first();
     }
 }
