@@ -5,7 +5,8 @@
     {{-- <x-qoute /> --}}
     <x-form class="mt-4" action="{{ route('register') }}" method="POST">
         <div class="mb-4">
-            <x-forms.field label="Choose Avatar" type="file" name="avatar" />
+            <label for="file">Avatar</label>
+            <input class="form-control" type="file" id="file" name="avatar" />
         </div>
         <div class="mb-4">
             <x-forms.field label="Name" type="text" name="name" />

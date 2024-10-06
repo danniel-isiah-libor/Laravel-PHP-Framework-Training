@@ -53,21 +53,21 @@ class User extends Authenticatable
     public function getUser($id = null)
     {
 
-        $users = [
-            [
-                "id" => 1,
-                "name" => 'Rey',
-                "age" => 23,
-                "email" => "raf@gmail.com",
-            ],
-            [
-                "id" => 2,
-                "name" => 'Will',
-                "age" => 40,
-                "email" => "william@gmail.com",
-            ],
+        // $users = [
+        //     [
+        //         "id" => 1,
+        //         "name" => 'Rey',
+        //         "age" => 23,
+        //         "email" => "raf@gmail.com",
+        //     ],
+        //     [
+        //         "id" => 2,
+        //         "name" => 'Will',
+        //         "age" => 40,
+        //         "email" => "william@gmail.com",
+        //     ],
 
-        ];
+        // ];
 
         // foreach ($users as $user) {
         //     if ($user['id'] == $id) {
@@ -78,11 +78,22 @@ class User extends Authenticatable
         //     }
         // }
 
-        return collect($users)->where('id', $id)->first();
+        // return collect($users)->where('id', $id)->first();
+
+
 
     }
 
-    public function createUser(){
-        
+    public function createUser()
+    {
+
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+
+    }
+
+
 }

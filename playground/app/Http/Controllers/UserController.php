@@ -54,11 +54,11 @@ class UserController extends Controller
         $validateRequest = $request->validated();
 
         $validateRequest['avatar']->store('avatar', 'public');
-        //saving ...
+        User::create($validateRequest);
         return redirect(route('login'));
     }
 
-    /**
+    /**0
      * Authenticate users
      *
      * @param Request $request
@@ -68,15 +68,14 @@ class UserController extends Controller
     {
         $request_validated = $request->validated();
 
-
         // Validate credentials...
-        // Auth::attempt($request_validated);
+
 
         // perform login..
-        $user = new User();
-        $user->email = $request_validated['email'];
-        $user->password = $request_validated['password'];
-        Auth::login($user);
+        // $user = new User();
+        // $user->email = $request_validated['email'];
+        // $user->password = $request_validated['password'];
+        // Auth::login($user);
 
         // return redirect(route('dashboard'));
         return view('dashboard');
