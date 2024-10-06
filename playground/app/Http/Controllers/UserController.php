@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DeactivateRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
@@ -58,6 +59,24 @@ class UserController extends Controller
         return redirect(route('login'));
     }
 
+    public function registration()
+    {
+        if (Auth::check()) {
+            return redirect(route('dashboard'));
+        }
+        return view('register');
+    }
+
+    /**
+     * redirect to login page
+     */
+    public function login()
+    {
+        if (Auth::check()) {
+            return redirect(route('dashboard'));
+        }
+        return view('login');
+    }
     /**0
      * Authenticate users
      *
@@ -68,17 +87,26 @@ class UserController extends Controller
     {
         $request_validated = $request->validated();
 
-        // Validate credentials...
+        // Perform login...
+        $user = User::whereEmail($request_validated['email'])->first();
 
+        // Validate credentials...
 
         // perform login..
         // $user = new User();
         // $user->email = $request_validated['email'];
         // $user->password = $request_validated['password'];
-        // Auth::login($user);
+        Auth::login($user);
 
-        // return redirect(route('dashboard'));
-        return view('dashboard');
+        return redirect(route('dashboard'));
+        // return view('dashboard');
     }
 
+    public function deactivate(DeactivateRequest $request)
+    {
+        User::find(Auth::user()->id)->delete();
+        Auth::logout();
+        return redirect(route('login'));
+
+    }
 }
