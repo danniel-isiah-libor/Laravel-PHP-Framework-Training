@@ -6,6 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 
@@ -76,7 +77,21 @@ class UserController extends Controller
         $validatedRequest = $request->validated();
         // dd('Successful Response');
         // dd($validatedRequest);
-        return redirect(route('/'));
+        if (Arr::has($validatedRequest, 'avatar')) {
+            $validatedRequest['avatar']->store('avatars', 'public');
+        }
+
+        // saving ...
+        // dd($validatedRequest);
+
+        $user = User::create([
+            'name' => $validatedRequest['name'],
+            'email' => $validatedRequest['email'],
+            'password' => bcrypt($validatedRequest['password']), // hash the password
+            'avatar' => $validatedRequest['avatar'] ?? null, // save the avatar path if available
+        ]);
+
+        return redirect(route('login'));
     }
 
     public function authenticate(LoginRequest $request)
@@ -87,13 +102,31 @@ class UserController extends Controller
         // Auth::attempt($validatedRequest);
 
         // Perform login...
-        $user = new User();
-        $user->email = $validatedRequest['email'];
-        $user->password = $validatedRequest['password'];
 
-        Auth::login($user);
+        // Attempt to log the user in with their email and password
+        if (Auth::attempt(['email' => $validatedRequest['email'], 'password' => $validatedRequest['password']])) {
+            // Regenerate the session to prevent fixation attacks
+            $request->session()->regenerate();
 
-        // return redirect(route('dashboard'));
-        return view('dashboard');
+            // Redirect to the dashboard after successful login
+            return redirect(route('dashboard'));
+        }
+    }
+    public function login()
+    {
+        if (Auth::check()) {
+            return redirect(route('dashboard'));
+        } else {
+            return view('login');
+        }
+    }
+
+    public function deactivate()
+    {
+        $user = Auth::user();
+        User::find($user->id)->delete();
+
+        Auth::logout();
+        return redirect(route('login'));
     }
 }

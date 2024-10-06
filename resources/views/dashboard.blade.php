@@ -6,4 +6,8 @@
     {{-- {{ Auth::user() }} --}}
 
     <a href="{{ route('logout') }}">Logout</a>
+
+    <br>
+
+    <a href="{{ route('login') }}">Deactivate</a>
 </div>

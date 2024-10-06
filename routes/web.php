@@ -55,9 +55,10 @@ Route::get('/submit', function (Request $request) {
     dd($request);
 });
 
-Route::post("/register", [UserController::class, 'store'])->name('register');
+Route::post("/register", [UserController::class, 'store'])
+    ->name('register');
 
-Route::view('/login', 'login')->name('login');
+Route::view('/login', [UserController::class, 'login'])->name('login');
 
 Route::post('/login', [UserController::class, 'authenticate'])
     ->name('authenticate');
@@ -70,3 +71,7 @@ Route::get('/logout', function () {
 
     return redirect(route('login'));
 })->name('logout');
+
+
+Route::get('/deactivate', [UserController::class, 'deactivate'])
+    ->name('deactivate');

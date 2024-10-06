@@ -52,6 +52,12 @@ class RegisterRequest extends FormRequest
                 // 'regex:/[A-Z]/', // At least one uppercase letter
                 // 'regex:/[0-9]/', // At least one digit
                 // 'regex:/[@$!%*?&]/' // At least one special character
+            ],
+            'avatar' => [
+                'nullable',
+                'image', // Ensure it's an image file
+                'mimes:jpg,jpeg,png', // Allowed file types
+                'max:2048' // Maximum file size of 2MB
             ]
         ];
     }

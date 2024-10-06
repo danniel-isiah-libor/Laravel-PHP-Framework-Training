@@ -70,4 +70,8 @@ class User extends Authenticatable
 
         return $users; // Return all users if no ID is specified
     }
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

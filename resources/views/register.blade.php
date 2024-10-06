@@ -18,7 +18,10 @@
             <br>
 
             <x-forms.field type="password" label="Confirm Password"  name="password_confirmation" />
+            <br>
 
+            <input type="file" name="avatar">
+            <br>
             <br>
 
             <x-button label="Save" />
