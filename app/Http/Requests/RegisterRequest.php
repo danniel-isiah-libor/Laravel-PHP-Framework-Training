@@ -29,7 +29,7 @@ class RegisterRequest extends FormRequest
         'password' => ['required', //'min:8','max:12', 
         Password::min(8)
         ->max(12), 'confirmed'],
-        'avatar' =>['nullable', 'file']
+    
 
         ];
     }

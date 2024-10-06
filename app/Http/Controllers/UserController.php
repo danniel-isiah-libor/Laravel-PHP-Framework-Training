@@ -94,27 +94,46 @@ class UserController extends Controller
 
       $validatedRequest = $request->validated();
 
-      $validatedRequest['avatar']->store('avatar', 'public');
+      User::create($validatedRequest);
       return redirect(route('login'));
     }
-
-    public function showLogin(){
-      return view('login');
-    }
-
     public function authenticate(LoginRequest $request){
       $validatedRequest= $request ->validated();
       // Auth::attempt($validatedRequest);
-    
-
-      $user = new User();
-      $user -> email = $validatedRequest ['email'];
-      $user -> password = $validatedRequest ['password'];
+  
+      // $user = new User();
+      // $user -> email = $validatedRequest ['email'];
+      // $user -> password = $validatedRequest ['password'];
+      
+      $user = User::whereEmail($validatedRequest['email'])->first();
       Auth::login($user);
       // dd(Auth::user());
       
 
-      return view('dashboard');
+      return redirect(route('dashboard'));
     }
+
+    public function showLogin(){
+      
+      if(Auth::check()){
+        return redirect(route('dashboard'));
+      }else{
+        return view('login');
+      }
+      
+    }
+
+
+    public function deactivate(){
+
+      $user = Auth::user();
+
+      User::find($user->id)->delete();
+
+      Auth::logout();
+
+      return redirect(route('login'));
+    }
+
 }
 

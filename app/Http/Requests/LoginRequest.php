@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\LoginRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
@@ -24,7 +25,8 @@ class LoginRequest extends FormRequest
         return [
             'email' =>[
                 'required',
-                'email'
+                'email',
+                new LoginRule(),
             ],
             'password' =>[
                 'required',

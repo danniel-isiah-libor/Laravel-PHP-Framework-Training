@@ -8,9 +8,7 @@
 
         <x-form action="{{route('register')}}">
 
-            <input type="file" name="avatar">
-
-            
+          
             <x-forms.field label="Name" type="text" name="name"/>
 
             <x-forms.field label="Email" type="text" name="email"/>

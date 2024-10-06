@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PyramidController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\AuthMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -109,10 +110,18 @@ Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 
 Route::post('/authenticate', [UserController::class, 'authenticate'])->name('authenticate');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/logout', function(){
-    Auth::logout();
+Route::middleware(AuthMiddleware::class)->group(function(){
+    
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    return redirect(route('login'));
-})->name('logout');
+    Route::get('/logout', function(){
+        Auth::logout();
+    
+        return redirect(route('login'));
+    })->name('logout');
+    
+    
+    Route::get('/deactivate', [UserController::class,'deactivate'])->name('deactivate');
+});
+
