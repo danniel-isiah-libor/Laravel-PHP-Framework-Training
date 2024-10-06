@@ -60,7 +60,7 @@ class UserController extends Controller
         }
 
         // saving ...
-        // dd($validatedRequest);
+        User::create($validatedRequest);
 
         return redirect(route('login'));
     }
@@ -68,9 +68,6 @@ class UserController extends Controller
     public function authenticate(LoginRequest $request)
     {
         $validatedRequest = $request->validated();
-
-        // Validate credentials...
-        // Auth::attempt($validatedRequest);
 
         // Perform login...
         $user = new User();

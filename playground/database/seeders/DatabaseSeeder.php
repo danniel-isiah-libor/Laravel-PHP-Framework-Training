@@ -121,6 +121,6 @@ class DatabaseSeeder extends Seeder
         // $post = Post::find(15);
         // $post->update(['created_at' => now()]);
 
-        Post::find(15)->delete();
+        // Post::find(15)->delete();
     }
 }
