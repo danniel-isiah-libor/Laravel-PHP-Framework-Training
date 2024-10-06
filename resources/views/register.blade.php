@@ -10,7 +10,7 @@
         @csrf
 
         <input type="file" name="avatar">
-
+        <br>
         <x-forms.field label="Name" type="text" name="name" />
         <br>
 

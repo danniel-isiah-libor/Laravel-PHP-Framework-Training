@@ -2,17 +2,17 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\LoginRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class LoginRequest extends FormRequest
+class DeactivateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -23,14 +23,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => [
-                'required',
-                'email',
-                new LoginRule(),
-            ],
-            'password' => [
-                'required'
-            ]
+            //
         ];
     }
 }

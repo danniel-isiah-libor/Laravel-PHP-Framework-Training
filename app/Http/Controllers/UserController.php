@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 
@@ -46,18 +46,22 @@ class UserController extends Controller
 
         $userClass = new User();
 
-        $data = $userClass->getUser($request->id);
+        $data = $userClass->getUser($id);
 
         return view('profile', ['user' => (object)$data]);
     }
+
     public function store(RegisterRequest $request)
     {
-        //dd($request->all());
-        $validatedRequest = $request->validated([]);
+        $validatedRequest = $request->validated();
 
-        $validatedRequest['avatar']->store('avatar', 'public');
-        //dd('Successful response!');
-        //saving...
+        if (Arr::has($validatedRequest, 'avatar')) {
+            $validatedRequest['avatar']->store('avatars', 'public');
+        }
+
+        // saving ...
+        User::create($validatedRequest);
+
         return redirect(route('login'));
     }
 
@@ -65,19 +69,14 @@ class UserController extends Controller
     {
         $validatedRequest = $request->validated();
 
-        //Perform login
+        // Perform login...
         $user = new User();
         $user->email = $validatedRequest['email'];
         $user->password = $validatedRequest['password'];
 
         Auth::login($user);
 
-        //dd(Auth::user());
-
-        //dd($validatedRequest);
-
-        // return redirect('dashboard');
-        //dd($user);
+        // return redirect(route('dashboard'));
         return view('dashboard');
     }
 }
