@@ -74,4 +74,16 @@ class User extends Authenticatable
         // return collect($users)->firstWhere('id', $id);
         return collect($users)->where('id', $id)->first();
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+        // return $this->hasOne();
+        // return $this->hasOneThrough()
+        // return $this->hasManyThrough()
+        // return $this->newHasMany()
+        // return $this->newHasMany()
+        // return $this->newHasOneThrough();
+        // return $this->newHasManyThrough();
+    }
 }
