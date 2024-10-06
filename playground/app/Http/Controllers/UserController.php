@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DeactivateRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
@@ -70,13 +71,30 @@ class UserController extends Controller
         $validatedRequest = $request->validated();
 
         // Perform login...
-        $user = new User();
-        $user->email = $validatedRequest['email'];
-        $user->password = $validatedRequest['password'];
+        $user = User::whereEmail($validatedRequest['email'])->first();
 
         Auth::login($user);
 
-        // return redirect(route('dashboard'));
-        return view('dashboard');
+        return redirect(route('dashboard'));
+    }
+
+    public function login()
+    {
+        if (Auth::check()) {
+            return redirect(route('dashboard'));
+        } else {
+            return view('login');
+        }
+    }
+
+    public function deactivate(DeactivateRequest $request)
+    {
+        $user = Auth::user();
+
+        User::find($user->id)->delete();
+
+        Auth::logout();
+
+        return redirect(route('login'));
     }
 }

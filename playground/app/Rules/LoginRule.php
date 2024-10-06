@@ -2,9 +2,11 @@
 
 namespace App\Rules;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginRule implements ValidationRule
 {
@@ -15,8 +17,19 @@ class LoginRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (!Auth::attempt(['email' => $value, 'password' => request()->password])) {
+        $user = User::withTrashed()->where('email', $value)->first();
+
+        if (
+            $user &&
+            Hash::check(request()->password, optional($user)->password)
+        ) {
+            $user->restore();
+        } else {
             $fail('Invalid Credentials!');
         }
+
+        // if (!Auth::attempt(['email' => $value, 'password' => request()->password])) {
+        //     $fail('Invalid Credentials!');
+        // }
     }
 }
