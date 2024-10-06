@@ -6,6 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 
@@ -54,7 +55,12 @@ class UserController extends Controller
     {
         $validatedRequest = $request->validated();
 
+        if (Arr::has($validatedRequest, 'avatar')) {
+            $validatedRequest['avatar']->store('avatars', 'public');
+        }
+
         // saving ...
+        // dd($validatedRequest);
 
         return redirect(route('login'));
     }

@@ -6,6 +6,8 @@
     </x-slot:header>
 
     <x-form action="{{ route('register') }}">
+        <input type="file" name="avatar">
+
         <x-forms.field label="Name" type="text" name="name" />
 
         <br>

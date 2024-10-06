@@ -32,19 +32,26 @@ class RegisterRequest extends FormRequest
                 'required',
                 'string',
                 'email',
+                // 'unique:' . User::class
                 // 'unique:users,email'
             ],
             'password' => [
                 'required',
-                Password::min(8)
-                    ->max(20)
-                    ->mixedCase()
-                    ->symbols()
-                    ->numbers()
-                    ->uncompromised()
-                    ->letters(),
+                // Password::min(8)
+                //     ->max(20)
+                //     ->mixedCase()
+                //     ->symbols()
+                //     ->numbers()
+                //     ->uncompromised()
+                //     ->letters(),
+                // Password::default(),
                 'confirmed'
+            ],
+            'avatar' => [
+                'nullable',
+                'file'
             ]
+            // 'id' => ['required']
         ];
     }
 
@@ -53,5 +60,10 @@ class RegisterRequest extends FormRequest
         return [
             'password.confirmed' => "This is a custom error message"
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        // $this->merge(['id' => Auth::user()->id]);
     }
 }

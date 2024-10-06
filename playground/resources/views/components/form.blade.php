@@ -1,4 +1,4 @@
-<form class="form-control" action="{{ $action }}" method="POST">
+<form class="form-control" action="{{ $action }}" method="POST" enctype="multipart/form-data">
     @csrf
 
     {{ $slot }}
