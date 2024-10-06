@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/test', function () {
+Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 // Route::get('/users', function(){
 //     //return "<h1 style='color: blue'>Vincent</h1>";
@@ -65,7 +65,7 @@ Route::fallback(function (){
 // //use => for defining value sa key;
 
 Route::get('/users/{id?}',[UserController::class, 'show'])->whereNumber('id'); //dynamic route || kapag may ?, magiging optional na siya;
-//gumamit ng ->whereNumber('id') para mavalidate ba kung number yung variable  
+//gumamit ng ->whereNumber('id') para mavalidate ba kung number yung variable
 //->whereAlpha para sa Alphabet lang etc.
 Route::get('/users/submit', [UserController::class,'submit']); //tatawagin yung class na may method na submit;
 
@@ -79,9 +79,12 @@ Route::view('/login', 'login')->name('login');
 
 Route::post('/login', [UserController::class, 'authenticate'])->name('authenticate');
 
-Route::get('/dashboard', [DashboardController::class] , 'index')->name('dashboard');
+Route::middleware(\App\Http\Middleware\AuthMiddleware::class)->group(function(){
+    Route::get('/dashboard', [DashboardController::class , 'index'])->name('dashboard');
+    Route::get('/logout', function(){
+        Auth::logout();
+        return redirect(route('login'));
+    })->name('logout');
+    Route::get('/deactivate', [UserController::class, 'deactivate'])->name('deactivate');
+});
 
-Route::get('/logout', function(){
-    Auth::logout();
-    return redirect(route('login'));
-})->name('logout');

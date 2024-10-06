@@ -6,8 +6,6 @@
     <div style="text-align:center; margin-top:auto;">
 
         <x-form action="{{ route('authenticate') }}">
-            <x-forms.field label="Name: " type="text" name="name"/>
-            <br>
 
             <x-forms.field label="Email: " type="email" name="email"/>
             <br>
