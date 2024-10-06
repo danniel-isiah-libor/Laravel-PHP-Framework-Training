@@ -65,5 +65,62 @@ class DatabaseSeeder extends Seeder
         //     ->get();
 
         // dd($user->toArray());
+
+        // $posts = Post::where('posts.id', 1)
+        //     ->join('users', function ($query) {
+        //         $query->on('users.id', '=', 'posts.user_id')
+        //             ->where();
+        //     })
+        //     ->first();
+
+        // dd($posts->toArray());
+
+        // $users = User::withCount([
+        //     'posts' => function ($query) {
+        //         $query->where('status', 'published');
+        //     }
+        // ])->take(2)->toSql();
+
+        // dd($users);
+
+        // $post = new Post();
+        // $post->user_id = 1;
+        // $post->title = 'This is a title';
+        // $post->body = 'This is a body';
+        // $post->save();
+
+        // Post::create([
+        //     'user_id' => 1,
+        //     'title' => 'This is a title',
+        //     'body' => 'This is a body'
+        // ]);
+
+        // Post::insert([
+        //     [
+        //         'user_id' => 1,
+        //         'title' => 'This is a title',
+        //         'body' => 'This is a body',
+        //     ],
+        //     [
+        //         'user_id' => 2,
+        //         'title' => 'This is a title',
+        //         'body' => 'This is a body',
+        //     ]
+        // ]);
+
+        // $post = Post::find(15);
+        // $post->created_at = now();
+        // $post->updated_at = now();
+        // $post->save();
+
+        // Post::where('id', 15)->update([
+        //     'created_at' => now(),
+        //     'updated_at' => now()
+        // ]);
+
+        // $post = Post::find(15);
+        // $post->update(['created_at' => now()]);
+
+        Post::find(15)->delete();
     }
 }
