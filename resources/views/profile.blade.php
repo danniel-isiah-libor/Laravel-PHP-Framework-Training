@@ -13,12 +13,13 @@
 
         <?php
         echo 'Name: ' . $name;
-     
         echo '<br>';
         echo 'Age: ' . $age;
         echo '<br>';
         echo 'Email: ' . $email;
+        echo '<br>';
         ?>
+        
     </body>
 
 </html>

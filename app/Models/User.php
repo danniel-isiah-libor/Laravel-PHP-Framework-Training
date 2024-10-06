@@ -1,16 +1,12 @@
 <?php
-
 namespace App\Models;
-
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -21,7 +17,6 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -31,7 +26,6 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
     /**
      * Get the attributes that should be cast.
      *
@@ -44,9 +38,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function getUser($id=null)
+    public function getUser($id = null)
     {
-        $users= [
+        // query here
+        $users = [
             [
                 'id' => 1,
                 'name' => 'Danniel',
@@ -59,11 +54,16 @@ class User extends Authenticatable
                 'age' => 30,
                 'email' => 'john@mail.test'
             ]
-            
         ];
-        return collect($users)->where('id', $id)->first();
-        
+        if ($id !== null) {
+            // Find user by ID
+            return collect($users)->where('id', $id)->first();
+        }
+
+        return $users; // Return all users if no ID is specified
     }
-    
-    
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
