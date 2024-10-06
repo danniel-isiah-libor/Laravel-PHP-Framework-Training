@@ -58,10 +58,6 @@ class UserController extends Controller
         return redirect(route('login'));
     }
 
-    public function login()
-    {
-        return view('login');
-    }
     /**0
      * Authenticate users
      *
@@ -74,13 +70,15 @@ class UserController extends Controller
 
         // Validate credentials...
 
+
         // perform login..
-        $user = User::whereEmail($request_validated['email'])->first();
+        // $user = new User();
+        // $user->email = $request_validated['email'];
+        // $user->password = $request_validated['password'];
+        // Auth::login($user);
 
-        Auth::login($user);
-
-        return redirect(route('dashboard'));
-        // return view('dashboard');
+        // return redirect(route('dashboard'));
+        return view('dashboard');
     }
 
 }
