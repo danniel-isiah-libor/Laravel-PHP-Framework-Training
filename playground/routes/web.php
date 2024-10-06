@@ -47,7 +47,7 @@ Route::view('/register', 'register');
 
 Route::post('/register', [UserController::class, 'register'])->name('register');
 
-Route::view('/login', 'login')->name('login');
+Route::get('/login', [UserController::class, 'login'])->name('login');
 
 Route::post('/authenticate', [UserController::class, 'authenticate'])->name('authenticate');
 
