@@ -6,9 +6,20 @@
     </x-slot>
 
     <div class="py-12">
-        <a href="{{ route('posts.edit', $data->uuid) }}"
-            class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update
-            Post</a>
+        @if (auth()->user()->id === $data->user_id)
+            <a href="{{ route('posts.edit', $data->uuid) }}"
+                class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update
+                Post</a>
+
+            <form action="{{ route('posts.destroy', $data->uuid) }}" method="POST">
+                @method('DELETE')
+                @csrf
+
+                <button type="submit"
+                    class="rounded-md bg-red-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Delete
+                    Post</button>
+            </form>
+        @endif
 
         <br>
         <br>

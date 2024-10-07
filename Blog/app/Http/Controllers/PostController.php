@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Post\DestroyRequest;
+use App\Http\Requests\Post\EditRequest;
 use App\Http\Requests\Post\StoreRequest;
+use App\Http\Requests\Post\UpdateRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -43,7 +46,7 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit(EditRequest $request, Post $post)
     {
         return view('posts.edit', ['data' => $post]);
     }
@@ -51,16 +54,22 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, Post $post)
     {
-        //
+        $validatedRequest = $request->validated();
+
+        $post->update($validatedRequest);
+
+        return redirect(route('posts.show', $post->uuid));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(DestroyRequest $request, Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect(route('dashboard'));
     }
 }
