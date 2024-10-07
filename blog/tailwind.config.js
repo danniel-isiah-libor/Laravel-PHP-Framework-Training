@@ -17,5 +17,7 @@ export default {
         },
     },
 
-    plugins: [forms],
+    darkMode: false, // Disable dark mode
+
+    plugins: [forms, require('@tailwindcss/forms')],
 };
