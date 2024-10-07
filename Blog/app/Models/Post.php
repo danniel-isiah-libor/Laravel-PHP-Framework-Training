@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Ramsey\Uuid\Uuid;
 
 class Post extends Model
 {
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory;
+
+    protected $primaryKey = 'uuid';
 
     /**
      * The attributes that are mass assignable.
@@ -20,6 +23,20 @@ class Post extends Model
         'title',
         'body',
     ];
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        self::creating(function ($model) {
+            $model->uuid = Uuid::uuid4()->toString();
+        });
+    }
 
     /**
      * Get the user that owns the post.
