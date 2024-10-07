@@ -8,7 +8,6 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @foreach ($posts as $post)
-
                 <div class="bg-white overflow-hidden p-10 shadow-sm sm:rounded-lg mb-5">
 
 
@@ -24,7 +23,10 @@
                         <div class="flex-shrink-0 hidden ml-3 sm:block">
 
                             <img class="object-cover w-16 h-16 rounded-full shadow-sm"
-                                src="{{ asset('storage/' . $post->user->avatar) }}" alt="profile" />
+                                src="{{ $post->user->avatar
+                                    ? asset('storage/' . $post->user->avatar)
+                                    : 'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg' }}"
+                                alt="profile" />
 
 
                         </div>
