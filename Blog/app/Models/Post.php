@@ -25,6 +25,15 @@ class Post extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'uuid' => 'string',
+    ];
+
+    /**
      * The "booted" method of the model.
      *
      * @return void
