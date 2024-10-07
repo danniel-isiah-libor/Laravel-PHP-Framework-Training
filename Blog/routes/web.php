@@ -9,15 +9,12 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [PostController::class, 'index'])->name('dashboard');
 
     Route::prefix('/posts')->name('posts.')->group(function () {
         Route::view('/create', 'posts.create')->name('create');
     });
-    Route::resource('posts', PostController::class)
-        ->except(['create']);
+    Route::resource('posts', PostController::class)->except(['index', 'create']);
 });
 
 Route::middleware('auth')->group(function () {
