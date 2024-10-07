@@ -7,7 +7,9 @@ use App\Http\Requests\Post\EditRequest;
 use App\Http\Requests\Post\StoreRequest;
 use App\Http\Requests\Post\UpdateRequest;
 use App\Models\Post;
+use App\Notifications\PublishPostNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -28,7 +30,12 @@ class PostController extends Controller
     {
         $validatedRequest = $request->validated();
 
-        Post::create($validatedRequest);
+        $post = Post::create($validatedRequest);
+
+        $post = Post::where('id', $post->uuid)->first();
+
+        // send notification...
+        Auth::user()->notify(new PublishPostNotification($post));
 
         return redirect(route('dashboard'));
     }
